@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="TelaPri" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <children>
+      <TabPane fx:id="TabPane" prefHeight="640.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="TabTelainicial" text="Passo 1">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TextArea editable="false" layoutX="5.0" layoutY="177.0" prefHeight="121.0" prefWidth="790.0" text="Prezado usuário, a finalidade desta ferramenta é de auxilia-lo no processo de&#10; tomada de decisão de troca de lâmpadas do seu edifício. Os valores de consulmo e custo&#10; de enegia elétrica serão estimados com  base nas informações fornecidas por você.">
+                           <font>
+                              <Font size="18.0" />
+                           </font></TextArea>
+                        <Button fx:id="btnAvanTelaIn" layoutX="124.0" layoutY="443.0" mnemonicParsing="false" onAction="#AvantTelainicial" text="Avançar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnSair" layoutX="517.0" layoutY="443.0" mnemonicParsing="false" onAction="#Sair" text="Sair">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="32.0" layoutY="145.0" text="Atenção" textOverrun="CLIP">
+                           <font>
+                              <Font name="Arial Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabInfo" onSelectionChanged="#iniciTabinfo" text="Passo 2">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnConfInfo" layoutX="375.0" layoutY="293.0" mnemonicParsing="false" onAction="#Avantpasso2" text="Confirmar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Hyperlink fx:id="Hiperlink" layoutX="14.0" layoutY="476.0" onAction="#hiper" text="https://www.aeseletropaulo.com.br/">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Hyperlink>
+                        <Label layoutX="14.0" layoutY="440.0" text="Para mais informações sobre a tarfa de energia eletrica acesse:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtTaxaTUSD" layoutX="510.0" layoutY="76.0" />
+                        <TextField fx:id="txtTaxaTE" layoutX="510.0" layoutY="124.0" />
+                        <Label layoutX="402.0" layoutY="75.0" text="Tarifa TUSD">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="427.0" layoutY="123.0" text="Tarifa TE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="141.0" layoutY="163.0" text="Preço do Par de lampada LED tubolar 60cm">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtPLED120" layoutX="511.0" layoutY="164.0" />
+                        <Label layoutX="141.0" layoutY="207.0" text="Preço do Par de lampada LED tubolar 120cm">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtPLED60" layoutX="511.0" layoutY="208.0" />
+                        <Label layoutX="141.0" layoutY="251.0" text="Deseja alterar as inforamações?">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnInfoSim" layoutX="141.0" layoutY="293.0" mnemonicParsing="false" onAction="#SimInfo" text="Sim">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnInfoNao" layoutX="233.0" layoutY="293.0" mnemonicParsing="false" onAction="#NaoInfo" text="Não">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabNumS" text="Passo 3">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnNumS" layoutX="375.0" layoutY="340.0" mnemonicParsing="false" onAction="#Avantpasso3" text="Avançar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="txtNumS" layoutX="344.0" layoutY="281.0" />
+                        <Label layoutX="228.0" layoutY="199.0" text="Qual o Numero de Salas/Ambientes no edificio?">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabLoop" onSelectionChanged="#inciPasso4" text="Passo 4">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="lblSalaN" layoutX="14.0" layoutY="101.0" text="Sala">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="137.0" text="Tipo de Lampada">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="181.0" text="Numero de Lâmpadas existentes na Sala/Ambiente">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="217.0" text="Potencia das Lâmpadas">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="254.0" text="Tempo que elas permanecem Ligadas">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="combTipodeLamp" layoutX="444.0" layoutY="138.0" prefHeight="25.0" prefWidth="201.0" />
+                        <TextField fx:id="txtNumdeLamp" layoutX="445.0" layoutY="182.0" />
+                        <TextField fx:id="txtPotLamp" layoutX="445.0" layoutY="218.0" />
+                        <TextField fx:id="txtTempLig" layoutX="445.0" layoutY="255.0" />
+                        <Button fx:id="btnRep" layoutX="15.0" layoutY="403.0" mnemonicParsing="false" text="Repetir as informações para a Sala seguinte">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="BtnAvanLoop" layoutX="506.0" layoutY="403.0" mnemonicParsing="false" onAction="#Avantpasso4" text="Avançar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabTabela" text="Passo 5">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="Tabela" layoutX="66.0" layoutY="83.0" prefHeight="200.0" prefWidth="650.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Sala" />
+                            <TableColumn prefWidth="117.0" text="Consumo" />
+                            <TableColumn prefWidth="75.0" text="Custo" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Button fx:id="brnAvanTabela" layoutX="628.0" layoutY="461.0" mnemonicParsing="false" onAction="#Avantpasso5" text="Avançar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <TableView layoutX="66.0" layoutY="312.0" prefHeight="92.0" prefWidth="652.0">
+                          <columns>
+                              <TableColumn prefWidth="75.0" text="Edifício" />
+                            <TableColumn prefWidth="75.0" text="Consumo" />
+                            <TableColumn prefWidth="75.0" text="Custo" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Label layoutX="290.0" layoutY="38.0" text="Consumo e Custo Mensal">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+           <Tab fx:id="TabSalvar" text="Passo 6">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="282.0" layoutY="158.0" text="Deseja salvar as informações?">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="rbSim" layoutX="357.0" layoutY="225.0" mnemonicParsing="false" text="Sim">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="rbNao" layoutX="357.0" layoutY="272.0" mnemonicParsing="false" text="Não">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <Button fx:id="btnSalvar" layoutX="356.0" layoutY="348.0" mnemonicParsing="false" onAction="#Avantpasso6" text="Avançar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabSimular" text="Passo 7">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="221.0" layoutY="158.0" text="Deseja fazer a simulação em quantos mês?">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtMeses" layoutX="326.0" layoutY="293.0" />
+                        <Button fx:id="btnMeses" layoutX="356.0" layoutY="350.0" mnemonicParsing="false" onAction="#Avantpasso7" text="Avançar">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabGrafico" text="Passo 8">
+               <content>
+                  <AnchorPane fx:id="btngraficoSim" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="Grafico" layoutX="121.0" layoutY="40.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <Button fx:id="btnGraficoNao" layoutX="485.0" layoutY="512.0" mnemonicParsing="false" onAction="#Avantpasso8" text="Não">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="207.0" layoutY="440.0" text="Deseja simular para outra quantidade de meses?">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnGraficoSim" layoutX="248.0" layoutY="512.0" mnemonicParsing="false" onAction="#RecuaPasso8" text="Sim">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="334.0" layoutY="14.0" text="Projeção Gráfica:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="TabFinal" text="Passo 9">
+               <content>
+                  <AnchorPane fx:id="btnFinalizar" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane layoutX="146.0" layoutY="106.0" prefHeight="200.0" prefWidth="200.0" />
+                        <TextArea editable="false" layoutX="65.0" layoutY="106.0" prefHeight="93.0" prefWidth="631.0" text="Lembre-se que o consulmo consiente também é uma ferramenta eficiente&#10;para economizar energia elétrica.">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextArea>
+                        <Button layoutX="353.0" layoutY="354.0" mnemonicParsing="false" onAction="#Avantpasso9" text="Finalizar!">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
