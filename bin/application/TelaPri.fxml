@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="TelaPri" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<AnchorPane fx:id="TelaPri" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
       <TabPane fx:id="TabPane" prefHeight="640.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -159,7 +159,7 @@
                         <TextField fx:id="txtNumdeLamp" layoutX="445.0" layoutY="182.0" />
                         <TextField fx:id="txtPotLamp" layoutX="445.0" layoutY="218.0" />
                         <TextField fx:id="txtTempLig" layoutX="445.0" layoutY="255.0" />
-                        <Button fx:id="btnRep" layoutX="15.0" layoutY="403.0" mnemonicParsing="false" text="Repetir as informações para a Sala seguinte">
+                        <Button fx:id="btnRep" layoutX="15.0" layoutY="403.0" mnemonicParsing="false" onAction="#Repetir" text="Repetir as informações para a Sala seguinte">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -172,15 +172,15 @@
                      </children>
                   </AnchorPane>
                </content></Tab>
-          <Tab fx:id="TabTabela" text="Passo 5">
+          <Tab fx:id="TabTabela" onSelectionChanged="#inciPasso5" text="Passo 5">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <TableView fx:id="Tabela" layoutX="66.0" layoutY="83.0" prefHeight="200.0" prefWidth="650.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Sala" />
-                            <TableColumn prefWidth="117.0" text="Consumo" />
-                            <TableColumn prefWidth="75.0" text="Custo" />
+                            <TableColumn fx:id="colSala" prefWidth="75.0" text="Sala" />
+                            <TableColumn fx:id="colConsumo" prefWidth="117.0" text="Consumo" />
+                            <TableColumn fx:id="colCusto" prefWidth="75.0" text="Custo" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -191,11 +191,11 @@
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <TableView layoutX="66.0" layoutY="312.0" prefHeight="92.0" prefWidth="652.0">
+                        <TableView fx:id="total" layoutX="66.0" layoutY="312.0" prefHeight="92.0" prefWidth="652.0">
                           <columns>
-                              <TableColumn prefWidth="75.0" text="Edifício" />
-                            <TableColumn prefWidth="75.0" text="Consumo" />
-                            <TableColumn prefWidth="75.0" text="Custo" />
+                              <TableColumn fx:id="edificio" prefWidth="75.0" text="Edifício" />
+                            <TableColumn fx:id="tconsumo" prefWidth="75.0" text="Consumo" />
+                            <TableColumn fx:id="tcusto" prefWidth="75.0" text="Custo" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

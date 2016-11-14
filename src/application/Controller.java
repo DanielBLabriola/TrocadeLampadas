@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -15,15 +16,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebEngine;
 
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +41,8 @@ public class Controller implements Initializable  {
 	int NumSalas;// numero de salas
 	
 	int NS=0;
+		
+		ArrayList<Object> CT=new ArrayList<>();
 	
 	    ArrayList<String> TipoLampada = new ArrayList<String>();
 	    ArrayList<Integer> NumerodeLampadas=new ArrayList<Integer>();
@@ -47,8 +55,8 @@ public class Controller implements Initializable  {
 	    ArrayList<String> consumo = new ArrayList<String>(); 
 	    ArrayList<String> consumoLED = new ArrayList<String>(); 
 	  
-	double totalLampadas;
-	double totalConsumo;
+	double totalLampadas=0;
+	double totalConsumo=0;
 	double totalConsumoLED;
 	double custokWhtotal;
 	double custokWhtotalLED;
@@ -56,8 +64,8 @@ public class Controller implements Initializable  {
 	
 	double TaxaTE=0.22402;
 	double TaxaTTUSD=0.17038;
-	double PLED120=0;
-	double PLED60=0;
+	double PLED120=44.76;
+	double PLED60=34.76;
 	
 	
 	
@@ -140,7 +148,34 @@ public class Controller implements Initializable  {
     @FXML
     private Tab TabTabela;
     
-    
+    //tabela 
+    @FXML
+    private TableView<CTabela> Tabela;
+    @FXML
+    private TableColumn<CTabela, String> colConsumo;
+
+    @FXML
+    private TableColumn<CTabela, Integer> colSala;
+    @FXML
+    private TableColumn<CTabela, String> colCusto;
+
+    private List<CTabela> lisTabela = new ArrayList();
+
+    private ObservableList<CTabela> observableListTabela;
+    //total
+    @FXML
+    private TableView<Total> total;
+    @FXML
+    private TableColumn<Total, String> tconsumo;
+
+    @FXML
+    private TableColumn<Total, Integer> edificio;
+    @FXML
+    private TableColumn<Total, String> tcusto;
+   
+    private List<Total> lisTotal = new ArrayList();
+
+    private ObservableList<Total> observableListTotal;
     
     //passo 6
     @FXML
@@ -307,9 +342,11 @@ public class Controller implements Initializable  {
 	    			    		 
 	    		 if(combTipodeLamp.getSelectionModel().getSelectedItem().toString()=="Fluorescente 120cm"){
 	    			 consumoLED.add(String.valueOf((1.0000*NumerodeLampadas.get(NS)*18*TempoLampadas.get(NS)/1000)*20));
+	    			 custodasLampadas.add(String.valueOf((NumerodeLampadas.get(NS)*PLED120)/2));
 	    		 }
 	    		 if(combTipodeLamp.getSelectionModel().getSelectedItem().toString()=="Fluorescente 60cm"){
 	    			 consumoLED.add(String.valueOf((1.0000*NumerodeLampadas.get(NS)*9*TempoLampadas.get(NS)/1000)*20));
+	    			 custodasLampadas.add(String.valueOf((NumerodeLampadas.get(NS)*PLED60)/2));
 	    		 }
 	    		 
 	    		 System.out.println("Sala : "+(NS+1));
@@ -353,7 +390,66 @@ public class Controller implements Initializable  {
 	    	lblSalaN.setText("Sala "+(NS+1));
 	    	
 	    }
+	    @FXML
+	    private void Repetir(){
+	    	if(NS>0){
+	    	combTipodeLamp.getSelectionModel().select(String.valueOf(TipoLampada.get(NS-1)));
+    		txtNumdeLamp.setText(String.valueOf(NumerodeLampadas.get(NS-1)));
+    		txtPotLamp.setText(String.valueOf(PotenciadaLampadas.get(NS-1)));
+    		txtTempLig.setText(String.valueOf(TempoLampadas.get(NS-1)));
+	    }
+	    else
+	    {
+	    	 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		     
+		         alert.setContentText("Não foi registrado Salas anteriores");
+		         alert.show();
+	    }
+	    }
 	    //passo 5
+	    
+	    @FXML
+	    private void inciPasso5(){
+	    	
+	    	//tabela
+	    	colSala.setCellValueFactory(new PropertyValueFactory<>("Sala"));
+	        colConsumo.setCellValueFactory(new PropertyValueFactory<>("Consumo"));
+	        colCusto.setCellValueFactory(new PropertyValueFactory<>("Custo"));
+	        
+	       
+	        		for (int i=0;i<NS;i++){
+	        			CTabela tabela= new CTabela((i+1),consumo.get(i),custodasLampadas.get(i));
+	        			lisTabela.add(tabela);
+	        		}
+	        		 observableListTabela = FXCollections.observableArrayList(lisTabela);
+
+	        	        Tabela.setItems(observableListTabela);
+	        	        
+	        //total	        
+	      edificio.setCellValueFactory(new PropertyValueFactory<>("Edificio"));
+	       tconsumo.setCellValueFactory(new PropertyValueFactory<>("Consumo"));
+	       tcusto.setCellValueFactory(new PropertyValueFactory<>("Custo"));
+	       
+	       double[] custoT=new double[NumSalas];
+	       double[] consumoT=new double[NumSalas];
+	       
+	       for(int i=0;i<NumSalas;i++){
+	    	   custoT[i]=Double.parseDouble(custodasLampadas.get(i));
+	    	   consumoT[i]=Double.parseDouble(consumo.get(i));
+	    	   totalLampadas=totalLampadas+custoT[i];
+	    	   totalConsumo=totalConsumo+consumoT[i];
+	       }
+	       
+	       Total T=new Total("Total",String.valueOf(totalConsumo),String.valueOf(totalLampadas));
+	       lisTotal.add(T);
+	       observableListTotal=FXCollections.observableArrayList(lisTotal);
+	       total.setItems(observableListTotal);
+	        		
+	        
+	    	
+	    		
+	    	
+	    }
 	    @FXML
 	    private void Avantpasso5(){
 
