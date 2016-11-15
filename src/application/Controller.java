@@ -545,9 +545,13 @@ public class Controller implements Initializable  {
 	    	double linhaLampada=0;
 	    	double linhaLED=0;
 	    	int Mes = 0;
-	    	double par=parcela/2;
-	    	double custokwhtotal1=custokWhtotal/2;
-	    	double custoKWhtotal1=custokWhtotalLED/2;
+	    	//double par=parcela/2;
+	    	//double custokwhtotal1=custokWhtotal/2;
+	    	//double custoKWhtotal1=custokWhtotalLED/2;
+	    	double par=parcela;
+	    	double custokwhtotal1=custokWhtotal;
+	    	double custoKWhtotal1=custokWhtotalLED;
+	    	/*
 	    	System.out.println("numero de meses "+NumerodeMeses);
 	    	System.out.println("valor da parcela "+parcela);
 	    	System.out.println("valor do kwh "+custokWhtotal);
@@ -557,7 +561,7 @@ public class Controller implements Initializable  {
 	    	System.out.println("valor da parcela "+par);
 	    	System.out.println("valor do kwh "+custokwhtotal1);
 	    	System.out.println("valor do kwh do LED "+custoKWhtotal1);
-	    	
+	    	*/
 	    	
 	    	XYChart.Series LED = new XYChart.Series();
 	    	LED.setName("LED");
