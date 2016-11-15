@@ -7,6 +7,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -67,7 +71,8 @@ public class Controller implements Initializable  {
 	double PLED120=44.76;
 	double PLED60=34.76;
 	
-	
+	int NumerodeMeses;
+	double parcela;
 	
 	
 	public TabPane TabPane;
@@ -158,6 +163,13 @@ public class Controller implements Initializable  {
     private TableColumn<CTabela, Integer> colSala;
     @FXML
     private TableColumn<CTabela, String> colCusto;
+    
+    @FXML
+    private TableColumn<CTabela, String> CustoKWh;
+    @FXML
+    private TableColumn<CTabela, String> CustoKwhLed;
+    @FXML
+    private TableColumn<CTabela, String> ConsumoLed;
 
     private List<CTabela> lisTabela = new ArrayList();
 
@@ -172,6 +184,12 @@ public class Controller implements Initializable  {
     private TableColumn<Total, Integer> edificio;
     @FXML
     private TableColumn<Total, String> tcusto;
+    @FXML
+    private TableColumn<Total, String> tcustokwh;
+    @FXML
+    private TableColumn<Total, String> ConsumoLedT;
+    @FXML
+    private TableColumn<Total, String> CustoKwhLedT;
    
     private List<Total> lisTotal = new ArrayList();
 
@@ -190,10 +208,16 @@ public class Controller implements Initializable  {
     //passo 7
     @FXML
     private Tab TabSimular;
+    @FXML
+    private TextField txtMeses;
     
     //passo 8
     @FXML
     private Tab TabGrafico;
+    @FXML
+    private LineChart<String, Integer> Grafico;
+    
+    ArrayList<String> MESES = new ArrayList<String>(); 
     
     //passo 9
     @FXML
@@ -343,10 +367,14 @@ public class Controller implements Initializable  {
 	    		 if(combTipodeLamp.getSelectionModel().getSelectedItem().toString()=="Fluorescente 120cm"){
 	    			 consumoLED.add(String.valueOf((1.0000*NumerodeLampadas.get(NS)*18*TempoLampadas.get(NS)/1000)*20));
 	    			 custodasLampadas.add(String.valueOf((NumerodeLampadas.get(NS)*PLED120)/2));
+	    			 custoKWhLED.add(String.valueOf((((NumerodeLampadas.get(NS)*18*TempoLampadas.get(NS)*TaxaTE)
+	    				+(NumerodeLampadas.get(NS)*18*TempoLampadas.get(NS)*TaxaTTUSD))/1000)*20));
 	    		 }
 	    		 if(combTipodeLamp.getSelectionModel().getSelectedItem().toString()=="Fluorescente 60cm"){
 	    			 consumoLED.add(String.valueOf((1.0000*NumerodeLampadas.get(NS)*9*TempoLampadas.get(NS)/1000)*20));
 	    			 custodasLampadas.add(String.valueOf((NumerodeLampadas.get(NS)*PLED60)/2));
+	    			 custoKWhLED.add(String.valueOf((((NumerodeLampadas.get(NS)*9*TempoLampadas.get(NS)*TaxaTE)
+	 	    				+(NumerodeLampadas.get(NS)*9*TempoLampadas.get(NS)*TaxaTTUSD))/1000)*20));
 	    		 }
 	    		 
 	    		 System.out.println("Sala : "+(NS+1));
@@ -415,10 +443,12 @@ public class Controller implements Initializable  {
 	    	colSala.setCellValueFactory(new PropertyValueFactory<>("Sala"));
 	        colConsumo.setCellValueFactory(new PropertyValueFactory<>("Consumo"));
 	        colCusto.setCellValueFactory(new PropertyValueFactory<>("Custo"));
-	        
+	        CustoKWh.setCellValueFactory(new PropertyValueFactory<>("custoKWh"));
+	        ConsumoLed.setCellValueFactory(new PropertyValueFactory<>("ConsumoLed"));
+	        CustoKwhLed.setCellValueFactory(new PropertyValueFactory<>("CustoKwhLed"));
 	       
 	        		for (int i=0;i<NS;i++){
-	        			CTabela tabela= new CTabela((i+1),consumo.get(i),custodasLampadas.get(i));
+	        			CTabela tabela= new CTabela((i+1),consumo.get(i),custoKWh.get(i),custodasLampadas.get(i),consumoLED.get(i),custoKWhLED.get(i));
 	        			lisTabela.add(tabela);
 	        		}
 	        		 observableListTabela = FXCollections.observableArrayList(lisTabela);
@@ -429,18 +459,36 @@ public class Controller implements Initializable  {
 	      edificio.setCellValueFactory(new PropertyValueFactory<>("Edificio"));
 	       tconsumo.setCellValueFactory(new PropertyValueFactory<>("Consumo"));
 	       tcusto.setCellValueFactory(new PropertyValueFactory<>("Custo"));
+	       tcustokwh.setCellValueFactory(new PropertyValueFactory<>("tcustokwh"));
 	       
+	       CustoKwhLedT.setCellValueFactory(new PropertyValueFactory<>("custokwhled"));
+	       ConsumoLedT.setCellValueFactory(new PropertyValueFactory<>("consumoled"));
+	       
+	        
 	       double[] custoT=new double[NumSalas];
 	       double[] consumoT=new double[NumSalas];
+	       double[] custokwhT=new double[NumSalas];
+	       double[] consumoledT=new double[NumSalas];
+	       double[] custokwhledT=new double[NumSalas];
 	       
 	       for(int i=0;i<NumSalas;i++){
 	    	   custoT[i]=Double.parseDouble(custodasLampadas.get(i));
 	    	   consumoT[i]=Double.parseDouble(consumo.get(i));
+	    	   custokwhT[i]=Double.parseDouble(custoKWh.get(i));
+	    	   consumoledT[i]=Double.parseDouble(consumoLED.get(i));
+	    	   custokwhledT[i]=Double.parseDouble(custoKWhLED.get(i));
+	    	   
+	    	   
 	    	   totalLampadas=totalLampadas+custoT[i];
 	    	   totalConsumo=totalConsumo+consumoT[i];
+	    	   custokWhtotal=custokWhtotal+custokwhT[i];
+	    	   totalConsumoLED=totalConsumoLED+consumoledT[i];
+	    	   custokWhtotalLED=custokWhtotalLED+custokwhledT[i];
+	    	   
 	       }
 	       
-	       Total T=new Total("Total",String.valueOf(totalConsumo),String.valueOf(totalLampadas));
+	       Total T=new Total("Total",String.valueOf(totalConsumo),String.valueOf(custokWhtotal),
+	    		   String.valueOf(totalLampadas),String.valueOf(totalConsumoLED),String.valueOf(custokWhtotalLED));
 	       lisTotal.add(T);
 	       observableListTotal=FXCollections.observableArrayList(lisTotal);
 	       total.setItems(observableListTotal);
@@ -469,6 +517,9 @@ public class Controller implements Initializable  {
 	    @FXML
 	    private void Avantpasso7(){// avancar
 
+	    	NumerodeMeses=Integer.parseInt(txtMeses.getText());
+	    	parcela=totalLampadas/NumerodeMeses;
+	    	
 	    	TabSimular.setDisable(true);
 	    	TabPane.getSelectionModel().select(TabGrafico);
 	    	TabGrafico.setDisable(false);
@@ -476,16 +527,69 @@ public class Controller implements Initializable  {
 	    //passo 8
 	    @FXML
 	    private void Avantpasso8(){// botao nâo
-
+	    	
 	    	TabGrafico.setDisable(true);
 	    	TabPane.getSelectionModel().select(TabFinal);
 	    	TabFinal.setDisable(false);
 	    	}
 	    @FXML
 	    private void RecuaPasso8(){// botao Sim
+	    	Grafico.getData().clear();
 	    	TabGrafico.setDisable(true);
 	    	TabPane.getSelectionModel().select(TabSimular);
 	    	TabSimular.setDisable(false);
+	    }
+	    @FXML
+	    private void iniciaGrafico(){// icialização do Grafíco
+	    	Grafico.getData().clear();
+	    	double linhaLampada=0;
+	    	double linhaLED=0;
+	    	int Mes = 0;
+	    	double par=parcela/2;
+	    	double custokwhtotal1=custokWhtotal/2;
+	    	double custoKWhtotal1=custokWhtotalLED/2;
+	    	System.out.println("numero de meses "+NumerodeMeses);
+	    	System.out.println("valor da parcela "+parcela);
+	    	System.out.println("valor do kwh "+custokWhtotal);
+	    	System.out.println("valor do kwh do LED "+custokWhtotalLED);
+	    	System.out.println("/////////////////////////////");
+	    	System.out.println("numero de meses "+NumerodeMeses);
+	    	System.out.println("valor da parcela "+par);
+	    	System.out.println("valor do kwh "+custokwhtotal1);
+	    	System.out.println("valor do kwh do LED "+custoKWhtotal1);
+	    	
+	    	
+	    	XYChart.Series LED = new XYChart.Series();
+	    	LED.setName("LED");
+            XYChart.Series Fluorescente = new XYChart.Series();
+	    	Fluorescente.setName("Fluorescente");
+	    	
+	    	
+	    	
+	    	
+	    	
+	    	for(int i=0;i<NumerodeMeses;i++){
+	    		linhaLED=linhaLED+parcela+custokWhtotalLED;
+	    		linhaLampada=linhaLampada+custokWhtotal;
+	    		Mes++;
+	    		System.out.println("Mes "+Mes+" custo led "+linhaLED+" custo normal "+linhaLampada);
+	    		MESES.add(String.valueOf(Mes));
+	    		LED.getData().add(new XYChart.Data<>(MESES.get(Mes-1), linhaLED));
+		    	Fluorescente.getData().add(new XYChart.Data<>(MESES.get(Mes-1), linhaLampada));
+    		}
+	    	do{
+	    		linhaLED=linhaLED+custokWhtotalLED;
+	    		linhaLampada=linhaLampada+custokWhtotal;
+	    		Mes++;
+	    		System.out.println("Mes "+Mes+" custo led "+linhaLED+" custo normal "+linhaLampada);
+	    		MESES.add(String.valueOf(Mes));
+	    		LED.getData().add(new XYChart.Data<>(MESES.get(Mes-1), linhaLED));
+		    	Fluorescente.getData().add(new XYChart.Data<>(MESES.get(Mes-1), linhaLampada));
+	    	}while(linhaLampada<linhaLED);
+	    	Grafico.getData().add(LED);
+	    	Grafico.getData().add(Fluorescente);
+	    	//Grafico.setPrefSize(GRAFICO_LARGURA, GRAFICO_ALTURA);
+	    	
 	    }
 	    
 	    //passo 9
