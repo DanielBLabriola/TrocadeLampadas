@@ -125,7 +125,8 @@ public class Controller implements Initializable  {
     //passo 4 //loop
     
    @FXML
-    private ComboBox combTipodeLamp;
+   //private ComboBox combTipodeLamp;
+    private ComboBox<String> combTipodeLamp;
     
     @FXML
     private TextField txtNumdeLamp;
