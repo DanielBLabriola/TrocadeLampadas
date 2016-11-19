@@ -73,6 +73,7 @@ public class Controller implements Initializable  {
 	double custokWhtotalLED;
 	
 	
+	
 	double TaxaTE=0.22402;
 	double TaxaTTUSD=0.17038;
 	double PLED120=44.76;
