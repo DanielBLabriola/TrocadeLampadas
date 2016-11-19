@@ -356,6 +356,7 @@ public class Controller implements Initializable  {
 	    	}
 	    
 	    
+	    
 	    @FXML
 	    private void btnJacad(){
 	    	dados=true;
