@@ -354,6 +354,8 @@ public class Controller implements Initializable  {
 	    	System.out.println("Preço 120:: "+PLED120);
 	    	System.out.println("Preço 60::"+PLED60);
 	    	}
+	    
+	    
 	    @FXML
 	    private void btnJacad(){
 	    	dados=true;
