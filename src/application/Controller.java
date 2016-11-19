@@ -469,7 +469,12 @@ public class Controller implements Initializable  {
 	        CustoKwhLed.setCellValueFactory(new PropertyValueFactory<>("CustoKwhLed"));
 	       
 	        		for (int i=0;i<NS;i++){
-	        			CTabela tabela= new CTabela((i+1),consumo.get(i),custoKWh.get(i),custodasLampadas.get(i),consumoLED.get(i),custoKWhLED.get(i));
+	        			CTabela tabela= new CTabela((i+1),
+	        					String.format("%.2f", Double.parseDouble(consumo.get(i))),
+	        					String.format("%.2f",Double.parseDouble(custoKWh.get(i))),
+	        					String.format("%.2f",Double.parseDouble(custodasLampadas.get(i)))
+	        					,String.format("%.2f",Double.parseDouble(consumoLED.get(i))),
+	        					String.format("%.2f",Double.parseDouble(custoKWhLED.get(i))));
 	        			lisTabela.add(tabela);
 	        		}
 	        		 observableListTabela = FXCollections.observableArrayList(lisTabela);
@@ -508,8 +513,8 @@ public class Controller implements Initializable  {
 	        		    	   
 	        		       }
 	        		       
-	        		       Total T=new Total("Total",String.valueOf(totalConsumo),String.valueOf(custokWhtotal),
-	        		    		   String.valueOf(totalLampadas),String.valueOf(totalConsumoLED),String.valueOf(custokWhtotalLED));
+	        		       Total T=new Total("Total",String.format("%.2f",(totalConsumo)),String.format("%.2f",(custokWhtotal)),
+	        		    		   String.format("%.2f",totalLampadas),String.format("%.2f",totalConsumoLED),String.format("%.2f",custokWhtotalLED));
 	        		       lisTotal.add(T);
 	        		       observableListTotal=FXCollections.observableArrayList(lisTotal);
 	        		       total.setItems(observableListTotal);
@@ -554,8 +559,12 @@ public class Controller implements Initializable  {
 	                      String[] valoresEntreVirgulas = linhasDoArquivo.split(";");
 	                      
 	                      //imprime a coluna que quiser
-	                      CTabela tabela= new CTabela(Integer.parseInt(valoresEntreVirgulas[0]),valoresEntreVirgulas[1],
-	                    		  valoresEntreVirgulas[2],valoresEntreVirgulas[3],valoresEntreVirgulas[4],valoresEntreVirgulas[5]);
+	                      CTabela tabela= new CTabela(Integer.parseInt(valoresEntreVirgulas[0]),
+	                    		  String.format("%.2f",Double.parseDouble(valoresEntreVirgulas[1])),
+	                    		  String.format("%.2f",Double.parseDouble(valoresEntreVirgulas[2])),
+	                    		  String.format("%.2f",Double.parseDouble(valoresEntreVirgulas[3])),
+	                    		  String.format("%.2f",Double.parseDouble(valoresEntreVirgulas[4])),
+	                    		  String.format("%.2f",Double.parseDouble(valoresEntreVirgulas[5])));
 	                      lisTabela.add(tabela);
 	                      consumo.add(String.valueOf(valoresEntreVirgulas[1]));
 	                      custoKWh.add(String.valueOf(valoresEntreVirgulas[2]));
@@ -599,8 +608,8 @@ public class Controller implements Initializable  {
 	        		    	   
 	        		       }
 	        		       
-	        		       Total T=new Total("Total",String.valueOf(totalConsumo),String.valueOf(custokWhtotal),
-	        		    		   String.valueOf(totalLampadas),String.valueOf(totalConsumoLED),String.valueOf(custokWhtotalLED));
+	        		       Total T=new Total("Total",String.format("%.2f",totalConsumo),String.format("%.2f",custokWhtotal),
+	        		    		   String.format("%.2f",totalLampadas),String.format("%.2f",totalConsumoLED),String.format("%.2f",custokWhtotalLED));
 	        		       lisTotal.add(T);
 	        		       observableListTotal=FXCollections.observableArrayList(lisTotal);
 	        		       total.setItems(observableListTotal);

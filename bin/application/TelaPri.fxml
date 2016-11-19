@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -19,7 +18,6 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane fx:id="TelaPri" prefHeight="640.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
@@ -223,7 +221,7 @@
                               <TableColumn fx:id="CustoKWh" prefWidth="127.0" resizable="false" text="Custo kWh (R$)" />
                             <TableColumn fx:id="colCusto" prefWidth="213.0" resizable="false" text="Custo da troca das lâmpadas (R$)" />
                               <TableColumn fx:id="ConsumoLed" prefWidth="148.0" resizable="false" text="Consumo com LED (kW)" />
-                              <TableColumn fx:id="CustoKwhLed" prefWidth="138.0" resizable="false" text="Custo kWh LED (kW)" />
+                              <TableColumn fx:id="CustoKwhLed" prefWidth="138.0" resizable="false" text="Custo kWh LED (R$)" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -244,7 +242,7 @@
                               <TableColumn fx:id="tcustokwh" prefWidth="112.0" resizable="false" sortType="DESCENDING" text="Custo kWh  (R$)" />
                             <TableColumn fx:id="tcusto" prefWidth="212.0" resizable="false" text="Custo da troca das lâmpadas  (R$)" />
                               <TableColumn fx:id="ConsumoLedT" prefWidth="146.0" resizable="false" text="Consumo com LED (kW)" />
-                              <TableColumn fx:id="CustoKwhLedT" prefWidth="126.0" resizable="false" text="Custo kWh LED (kW)" />
+                              <TableColumn fx:id="CustoKwhLedT" prefWidth="126.0" resizable="false" text="Custo kWh LED (R$)" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
