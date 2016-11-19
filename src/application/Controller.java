@@ -82,7 +82,7 @@ public class Controller implements Initializable  {
 	double parcela;
 	boolean dados=false;
 	
-	
+	@FXML
 	public TabPane TabPane;
 	//passo 1 Variaveis 
 	@FXML
@@ -256,7 +256,7 @@ public class Controller implements Initializable  {
 		  
 		  combTipodeLamp.getItems().removeAll(combTipodeLamp.getItems());
 		  combTipodeLamp.getItems().addAll("Fluorescente 120cm", "Fluorescente 60cm");
-		  combTipodeLamp.getSelectionModel().select("Selecione o tipo de Lâmpada");
+		  combTipodeLamp.getSelectionModel().select("Selecione o tipo de lâmpada!");
 		  
 		  
 		  ToggleGroup group = new ToggleGroup();
@@ -366,7 +366,7 @@ public class Controller implements Initializable  {
 	    @FXML
 	    private void Avantpasso4(){// botao avancar passo4
 
-	     if(combTipodeLamp.getSelectionModel().getSelectedItem().toString()!="Selecione o tipo de Lâmpada"){
+	     if(combTipodeLamp.getSelectionModel().getSelectedItem().toString()!="Selecione o tipo de lâmpada!"){
 	    	if(NS<NumSalas){
 	    		TipoLampada.add(String.valueOf(combTipodeLamp.getSelectionModel().getSelectedItem().toString()));
 	    		NumerodeLampadas.add(Integer.parseInt(txtNumdeLamp.getText()));
@@ -445,7 +445,7 @@ public class Controller implements Initializable  {
 	    {
 	    	 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		     
-		         alert.setContentText("Não foi registrado Salas anteriores");
+		         alert.setContentText("Não foi registrado Sala/Ambiente anterior");
 		         alert.show();
 	    }
 	    }
@@ -672,7 +672,7 @@ public class Controller implements Initializable  {
 	    	 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		       //  alert.setTitle("Este Ã© o tÃ­tulo do Alerta");
 		        // alert.setHeaderText("Este Ã© o cabeÃ§alho do Alerta");
-		         alert.setContentText("dados Salvos com sucesso!");
+		         alert.setContentText("Informações salvas com sucesso!");
 		         alert.show();
 	    	}catch (FileNotFoundException ex)
 	    	{ Alert alert = new Alert(Alert.AlertType.INFORMATION);
