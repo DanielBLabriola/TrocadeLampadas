@@ -121,6 +121,7 @@ public class Controller implements Initializable  {
     private TextField txtTaxaTE;
 
     
+    
     //passo 3
     @FXML
     private Button btnNumS;
