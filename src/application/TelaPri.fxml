@@ -26,6 +26,7 @@
       <TabPane fx:id="TabPane" prefHeight="640.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="TabTelainicial" text="Passo 1">
+          
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>

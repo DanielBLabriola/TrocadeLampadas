@@ -770,6 +770,7 @@ public class Controller implements Initializable  {
 	    	TabPane.getSelectionModel().select(TabFinal);
 	    	TabFinal.setDisable(false);
 	    	}
+	    
 	    @FXML
 	    private void RecuaPasso8(){// botao Sim
 	    	Grafico.getData().clear();
