@@ -350,7 +350,7 @@ public class Controller implements Initializable  {
 	    	TabNumS.setDisable(true);
 	    	TabPane.getSelectionModel().select(TabLoop);
 	    	TabLoop.setDisable(false);
-	    	
+	    	dados=false;
 	    	System.out.println("TaxaTE "+TaxaTE);
 	    	System.out.println("TaxaTUSD "+TaxaTTUSD);
 	    	System.out.println("Preço 120:: "+PLED120);
